@@ -133,17 +133,19 @@ export default function Gameboard({ navigation, route }) {
   }
 
   const throwDices = () => {
-    let spots = [...diceSpots];
-    for (let i = 0; i < NBR_OF_DICES; i++) {
-      if (!selectedDices[i]) {
-        let randomNumber = Math.floor(Math.random() * MAX_SPOT + 1);
-        spots[i] = randomNumber;
-        board[i] = 'dice-' + randomNumber;
+    if (nbrOfThrowsLeft > 0) {
+      let spots = [...diceSpots];
+      for (let i = 0; i < NBR_OF_DICES; i++) {
+        if (!selectedDices[i]) {
+          let randomNumber = Math.floor(Math.random() * MAX_SPOT + 1);
+          spots[i] = randomNumber;
+          board[i] = 'dice-' + randomNumber;
+        }
+      }
+      setDiceSpots(spots);
+      setNbrOfThrowsLeft(nbrOfThrowsLeft-1);
       }
     }
-    setDiceSpots(spots);
-    setNbrOfThrowsLeft(nbrOfThrowsLeft-1);
-  }
 
   function getSpotTotal(i) {
     return dicePointsTotal[i];
